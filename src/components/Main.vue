@@ -3,6 +3,7 @@
     h1 Hue Color Picker
     slider-picker(v-model="colors")
     .light-bulb-container
+      toggle-switch
       div
         .light-effect
         i.fa.fa-lightbulb-o
@@ -10,6 +11,7 @@
 
 <script>
 import { Slider } from 'vue-color'
+import ToggleSwitch from './toggleSwitch.vue'
 
 const defaultProps = {
   hex: '#194d33',
@@ -22,7 +24,8 @@ const defaultProps = {
 export default {
   name: 'Main',
   components: {
-    'slider-picker': Slider
+    'slider-picker': Slider,
+    'toggle-switch': ToggleSwitch
   },
   data () {
     return {
@@ -37,9 +40,17 @@ export default {
 a {
   color: #42b983;
 }
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 #app > main > .vc-slider {
   margin: 0 auto;
 }
+
 .light-bulb-container {
   margin: 2em 5em;
   > div {
