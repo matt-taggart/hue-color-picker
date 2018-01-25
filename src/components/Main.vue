@@ -20,7 +20,7 @@ const defaultProps = {
 }
 
 export default {
-  name: 'HelloWorld',
+  name: 'Main',
   components: {
     'slider-picker': Slider
   },
