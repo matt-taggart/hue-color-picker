@@ -1,8 +1,11 @@
-<template>
-  <main>
-    <h1>Hue Color Picker</h1>
-    <slider-picker v-model="colors" />
-  </main>
+<template lang="pug">
+  main
+    h1 Hue Color Picker
+    slider-picker(v-model="colors")
+    .light-bulb-container
+      div
+        .light-effect
+        i.fa.fa-lightbulb-o
 </template>
 
 <script>
@@ -36,5 +39,25 @@ a {
 }
 #app > main > .vc-slider {
   margin: 0 auto;
+}
+.light-bulb-container {
+  margin: 2em 5em;
+  > div {
+    display: flex;
+    justify-content: center;
+  }
+  .fa-lightbulb-o {
+    font-size: 10em;
+  }
+  .light-effect {
+    position: absolute;
+    text-align: center;
+    width: 70px;
+    height: 80px;
+    border-radius: 80px;
+    margin: 1.25em 0 0 0;
+    background: yellow;
+    z-index: -1;
+  }
 }
 </style>
