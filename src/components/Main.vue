@@ -36,7 +36,9 @@ export default {
   computed: {
     hexColorStyle () {
       return {
-        backgroundColor: this.colors.hex
+        backgroundColor: this.lightsOn
+          ? this.colors.hex
+          : '#ffffff'
       }
     }
   }

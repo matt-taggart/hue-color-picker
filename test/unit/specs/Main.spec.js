@@ -24,15 +24,25 @@ describe('Main.vue', () => {
     expect(wrapper.find('h1').text()).toEqual('Hue Color Picker')
   })
 
-  it('should render hex color', () => {
+  it('should render white hex color in off state', () => {
     const renderStyle = wrapper
       .find('.light-effect')
-      .contains('[style="background-color: rgb(25, 77, 51);"]')
+      .contains('[style="background-color: rgb(255, 255, 255);"]')
 
     expect(renderStyle).toBe(true)
   })
 
-  it('should update hex color', () => {
+  it('should trigger light switch', () => {
+    expect(wrapper.vm.lightsOn).toBe(false)
+
+    switchLight()
+
+    expect(wrapper.vm.lightsOn).toBe(true)
+  })
+
+  it('should update hex color in on state', () => {
+    switchLight()
+
     wrapper.setData({
       colors: {
         hex: '#092929'
@@ -46,13 +56,9 @@ describe('Main.vue', () => {
     expect(renderStyle).toBe(true)
   })
 
-  it('should trigger light switch', () => {
-    expect(wrapper.vm.lightsOn).toBe(false)
-
+  function switchLight () {
     wrapper
       .find('.switch input[type="checkbox"]')
       .trigger('click')
-
-    expect(wrapper.vm.lightsOn).toBe(true)
-  })
+  }
 })
