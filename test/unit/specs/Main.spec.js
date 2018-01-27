@@ -20,19 +20,25 @@ describe('Main.vue', () => {
     expect(wrapper.vm.colors).toEqual(defaultProps)
   })
 
-  it('should update colors on slider', () => {
-    const el = wrapper.find('.vc-hue-container')
-    el.trigger('mousedown')
-    el.trigger('mousemove')
-
-    expect(wrapper.vm.colors.hex).toBe('#000000')
-  })
-
   it('should render hex color', () => {
     const renderStyle = wrapper
       .find('.light-effect')
       .contains('[style="background-color: rgb(25, 77, 51);"]')
 
+    expect(renderStyle).toBe(true)
+  })
+
+  it('should update hex color', () => {
+    wrapper.setData({
+      colors: {
+        hex: '#092929'
+      }
+    })
+
+    const renderStyle = wrapper
+      .find('.light-effect')
+      .contains('[style="background-color: rgb(9, 41, 41);"]')
+      
     expect(renderStyle).toBe(true)
   })
 })
