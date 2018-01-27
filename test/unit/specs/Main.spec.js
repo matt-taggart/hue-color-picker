@@ -20,6 +20,10 @@ describe('Main.vue', () => {
     expect(wrapper.vm.colors).toEqual(defaultProps)
   })
 
+  it('should render heading with text', () => {
+    expect(wrapper.find('h1').text()).toEqual('Hue Color Picker')
+  })
+
   it('should render hex color', () => {
     const renderStyle = wrapper
       .find('.light-effect')
@@ -38,7 +42,17 @@ describe('Main.vue', () => {
     const renderStyle = wrapper
       .find('.light-effect')
       .contains('[style="background-color: rgb(9, 41, 41);"]')
-      
+
     expect(renderStyle).toBe(true)
+  })
+
+  it('should trigger light switch', () => {
+    expect(wrapper.vm.lightsOn).toBe(false)
+
+    wrapper
+      .find('.switch input[type="checkbox"]')
+      .trigger('click')
+
+    expect(wrapper.vm.lightsOn).toBe(true)
   })
 })

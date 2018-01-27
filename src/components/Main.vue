@@ -3,7 +3,7 @@
     h1 Hue Color Picker
     slider-picker(v-model="colors")
     .light-bulb-container
-      toggle-switch
+      toggle-switch(v-model="lightsOn")
       div
         .light-effect(:style="hexColorStyle")
         i.fa.fa-lightbulb-o
@@ -29,7 +29,8 @@ export default {
   },
   data () {
     return {
-      colors: defaultProps
+      colors: defaultProps,
+      lightsOn: false
     }
   },
   computed: {

@@ -1,6 +1,6 @@
 <template lang="pug">
   label.switch
-    input(type="checkbox", v-model="checked")
+    input(type="checkbox", @click="updateChecked")
     span.slider.round
 </template>
 
@@ -13,6 +13,10 @@ export default {
     }
   },
   methods: {
+    updateChecked (event) {
+      this.checked = !this.checked
+      this.$emit('input', this.checked)
+    },
     computeGammaCorrection (color) {
       return (color > 0.04045)
         ? Math.pow((color + 0.055) / (1.0 + 0.055), 2.4)
