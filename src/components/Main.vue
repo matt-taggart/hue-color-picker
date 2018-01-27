@@ -5,7 +5,7 @@
     .light-bulb-container
       toggle-switch
       div
-        .light-effect
+        .light-effect(:style="hexColorStyle")
         i.fa.fa-lightbulb-o
 </template>
 
@@ -30,6 +30,13 @@ export default {
   data () {
     return {
       colors: defaultProps
+    }
+  },
+  computed: {
+    hexColorStyle () {
+      return {
+        backgroundColor: this.colors.hex
+      }
     }
   }
 }
@@ -67,7 +74,6 @@ main {
     height: 80px;
     border-radius: 80px;
     margin: 1.25em 0 0 0;
-    background: yellow;
     z-index: -1;
   }
 }
