@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -120,6 +121,15 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
+
+    new webpack.NormalModuleReplacementPlugin(
+      /\/iconv-loader$/, 'node-noop'
+    ),
+
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default) 
+      safe: false // load .env.example (defaults to "false" which does not use dotenv-safe) 
+    })
   ]
 })
 

@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const Dotenv = require('dotenv-webpack')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -64,7 +65,16 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         to: config.dev.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+
+    new webpack.NormalModuleReplacementPlugin(
+      /\/iconv-loader$/, 'node-noop'
+    ),
+
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default) 
+      safe: false // load .env.example (defaults to "false" which does not use dotenv-safe) 
+    })
   ]
 })
 

@@ -11,7 +11,8 @@
     "test": "npm run unit",
     "watch": "jest --config test/unit/jest.conf.js --watch",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "postinstall": "cd node_modules/hue && yarn install && npm run build"
   },
   "dependencies": {
     "hue": "git+https://git@github.com/matt-taggart/hue-api-v2.git",
@@ -37,6 +38,7 @@
     "chalk": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
+    "dotenv-webpack": "^1.5.4",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
@@ -54,6 +56,7 @@
     "jest-serializer-vue": "^0.3.0",
     "jsdom": "^11.6.1",
     "jsdom-global": "^3.0.2",
+    "node-noop": "^1.0.0",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.7.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
