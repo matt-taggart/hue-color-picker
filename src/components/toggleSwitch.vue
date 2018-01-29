@@ -5,16 +5,15 @@
 </template>
 
 <script>
-import Hue from 'hue'
-
-const hue = Hue.init({
-  ip: process.env.IP || '127.0.0.1',
-  username: process.env.USERNAME || 'My Hue'
-})
 
 export default {
   name: 'ToggleSwitch',
-  props: ['colors', 'applyCorrections'],
+  props: [
+    'colors',
+    'applyCorrections',
+    'setLightStateAll',
+    'turnOffAllLights'
+  ],
   data () {
     return {
       checked: false
@@ -22,27 +21,13 @@ export default {
   },
   methods: {
     async flipSwitch () {
-      const { r, g, b } = this.colors.rgba
-
       this.checked = !this.checked
       this.$emit('input', this.checked)
 
       if (this.checked) {
-        try {
-          const { x, y } = this.applyCorrections(r, g, b)
-
-          await hue.setLightStateAll({
-            xy: [+x, +y]
-          })
-        } catch (error) {
-          console.error(error)
-        }
+        this.setLightStateAll()
       } else {
-        try {
-          await hue.turnOffAllLights()
-        } catch (error) {
-          console.error(error)
-        }
+        this.turnOffAllLights()
       }
     }
   }

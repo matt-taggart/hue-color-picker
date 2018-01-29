@@ -7,7 +7,9 @@
       toggle-switch(
         v-model="lightsOn",
         :colors="colors",
-        :applyCorrections="applyCorrections"
+        :applyCorrections="applyCorrections",
+        :setLightStateAll="setLightStateAll",
+        :turnOffAllLights="turnOffAllLights"
       )
       div
         .light-effect(:style="hexColorStyle")
@@ -78,25 +80,30 @@ export default {
       this.colors = value
 
       if (this.lightsOn) {
-        const { r, g, b } = this.colors.rgba
-        const { x, y } = this.applyCorrections(r, g, b)
-
-        try {
-          await hue.setLightStateAll({
-            xy: [+x, +y]
-          })
-        } catch (error) {
-          console.error(error)
-        }
+        this.setLightStateAll()
       } else {
-        try {
-          await hue.turnOffAllLights()
-        } catch (error) {
-          console.error(error)
-        }
+        this.turnOffAllLights()
       }
     }, 750),
+    async setLightStateAll () {
+      const { r, g, b } = this.colors.rgba
+      const { x, y } = this.applyCorrections(r, g, b)
 
+      try {
+        await hue.setLightStateAll({
+          xy: [+x, +y]
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async turnOffAllLights () {
+      try {
+        await hue.turnOffAllLights()
+      } catch (error) {
+        console.error(error)
+      }
+    },
     computeGammaCorrection (color) {
       return (color > 0.04045)
         ? Math.pow((color + 0.055) / (1.0 + 0.055), 2.4)
