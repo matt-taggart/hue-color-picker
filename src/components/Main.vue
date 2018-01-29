@@ -74,18 +74,26 @@ export default {
     }
   },
   methods: {
-    updateColor: debounce(function (value) {
+    updateColor: debounce(async function (value) {
       this.colors = value
 
-      const { r, g, b } = this.colors.rgba
-      const { x, y } = this.applyCorrections(r, g, b)
+      if (this.lightsOn) {
+        const { r, g, b } = this.colors.rgba
+        const { x, y } = this.applyCorrections(r, g, b)
 
-      try {
-        hue.setLightStateAll({
-          xy: [+x, +y]
-        })
-      } catch (error) {
-        console.error(error)
+        try {
+          await hue.setLightStateAll({
+            xy: [+x, +y]
+          })
+        } catch (error) {
+          console.error(error)
+        }
+      } else {
+        try {
+          await hue.turnOffAllLights()
+        } catch (error) {
+          console.error(error)
+        }
       }
     }, 750),
 
