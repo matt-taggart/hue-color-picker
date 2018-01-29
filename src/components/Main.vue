@@ -27,7 +27,7 @@ const hue = Hue.init({
   username: process.env.USERNAME || 'My Hue'
 })
 
-const defaultProps = {
+const defaultColors = {
   hex: '#194d33',
   hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
   hsv: { h: 150, s: 0.66, v: 0.30, a: 1 },
@@ -43,7 +43,7 @@ export default {
   },
   data () {
     return {
-      colors: defaultProps,
+      colors: defaultColors,
       connected: false,
       connectionStatus: 'No Hue Bridge Connection Found',
       lightsOn: false
@@ -84,7 +84,7 @@ export default {
       } else {
         this.turnOffAllLights()
       }
-    }, 750),
+    }, 500),
     async setLightStateAll () {
       const { r, g, b } = this.colors.rgba
       const { x, y } = this.applyCorrections(r, g, b)
