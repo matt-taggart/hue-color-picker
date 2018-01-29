@@ -4,7 +4,7 @@
     h1 Hue Color Picker
     slider-picker(v-model="colors")
     .light-bulb-container
-      toggle-switch(v-model="lightsOn")
+      toggle-switch(v-model="lightsOn", :colors="colors")
       div
         .light-effect(:style="hexColorStyle")
         i.fa.fa-lightbulb-o
@@ -16,7 +16,7 @@ import Hue from 'hue'
 import ToggleSwitch from './toggleSwitch.vue'
 
 const hue = Hue.init({
-  ip: process.env.IP || '127.0.0.1', //add default for unit tests
+  ip: process.env.IP || '127.0.0.1',
   username: process.env.USERNAME || 'My Hue'
 })
 
@@ -66,39 +66,6 @@ export default {
     } catch (e) {
       this.connected = false
       this.connectionStatus = 'No Hue Bridge Connection Found'
-    }
-  },
-  methods: {
-    computeGammaCorrection (color) {
-      return (color > 0.04045)
-        ? Math.pow((color + 0.055) / (1.0 + 0.055), 2.4)
-        : (color / 12.92)
-    },
-    computeD65Conversion (r, g, b) {
-      const X = r * 0.664511 + g * 0.154324 + b * 0.162028
-      const Y = r * 0.283881 + g * 0.668433 + b * 0.047685
-      const Z = r * 0.000088 + g * 0.072310 + b * 0.986039
-
-      return { X, Y, Z }
-    },
-    calculateXYValues (X, Y, Z) {
-      const x = (X / (X + Y + Z)).toFixed(4)
-      const y = (Y / (X + Y + Z)).toFixed(4)
-
-      return { x, y }
-    },
-    applyCorrections (r, g, b) {
-      const gammaCorrectedRed = this.computeGammaCorrection(this.colors.rgba.r)
-      const gammaCorrectedGreen = this.computeGammaCorrection(this.colors.rgba.g)
-      const gammaCorrectedBlue = this.computeGammaCorrection(this.colors.rgba.b)
-
-      const { X, Y, Z } = this.computeD65Conversion(
-        gammaCorrectedRed,
-        gammaCorrectedGreen,
-        gammaCorrectedBlue
-      )
-
-      return this.calculateXYValues(X, Y, Z)
     }
   }
 }

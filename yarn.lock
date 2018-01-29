@@ -3552,7 +3552,7 @@ https-browserify@^1.0.0:
 
 "hue@git+https://git@github.com/matt-taggart/hue-api-v2.git":
   version "1.0.0"
-  resolved "git+https://git@github.com/matt-taggart/hue-api-v2.git#0a4ced9b05529d60fa8d723cd3fc3f4c872c037d"
+  resolved "git+https://git@github.com/matt-taggart/hue-api-v2.git#4b4bec2d16b3563f1f2a586badf4f151f8e5fcb2"
   dependencies:
     dotenv "^4.0.0"
     node-fetch "^1.7.3"
