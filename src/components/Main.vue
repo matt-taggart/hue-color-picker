@@ -93,15 +93,17 @@ export default {
         await hue.setLightStateAll({
           xy: [+x, +y]
         })
-      } catch (error) {
-        console.error(error)
+      } catch (e) {
+        this.connected = false
+        this.connectionStatus = 'No Hue Bridge Connection Found'
       }
     },
     async turnOffAllLights () {
       try {
         await hue.turnOffAllLights()
-      } catch (error) {
-        console.error(error)
+      } catch (e) {
+        this.connected = false
+        this.connectionStatus = 'No Hue Bridge Connection Found'
       }
     },
     computeGammaCorrection (color) {
