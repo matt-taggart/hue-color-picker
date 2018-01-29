@@ -2,9 +2,13 @@
   main
     .connection-bar(:style="connectionBarStyle") {{ connectionStatus }}
     h1 Hue Color Picker
-    slider-picker(v-model="colors")
+    slider-picker(:value="colors", @input="updateColor")
     .light-bulb-container
-      toggle-switch(v-model="lightsOn", :colors="colors")
+      toggle-switch(
+        v-model="lightsOn",
+        :colors="colors",
+        :applyCorrections="applyCorrections"
+      )
       div
         .light-effect(:style="hexColorStyle")
         i.fa.fa-lightbulb-o
@@ -14,6 +18,7 @@
 import { Slider } from 'vue-color'
 import Hue from 'hue'
 import ToggleSwitch from './toggleSwitch.vue'
+import debounce from 'lodash/debounce'
 
 const hue = Hue.init({
   ip: process.env.IP || '127.0.0.1',
@@ -66,6 +71,54 @@ export default {
     } catch (e) {
       this.connected = false
       this.connectionStatus = 'No Hue Bridge Connection Found'
+    }
+  },
+  methods: {
+    updateColor: debounce(function (value) {
+      this.colors = value
+
+      const { r, g, b } = this.colors.rgba
+      const { x, y } = this.applyCorrections(r, g, b)
+
+      try {
+        hue.setLightStateAll({
+          xy: [+x, +y]
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    }, 750),
+
+    computeGammaCorrection (color) {
+      return (color > 0.04045)
+        ? Math.pow((color + 0.055) / (1.0 + 0.055), 2.4)
+        : (color / 12.92)
+    },
+    computeD65Conversion (r, g, b) {
+      const X = r * 0.664511 + g * 0.154324 + b * 0.162028
+      const Y = r * 0.283881 + g * 0.668433 + b * 0.047685
+      const Z = r * 0.000088 + g * 0.072310 + b * 0.986039
+
+      return { X, Y, Z }
+    },
+    calculateXYValues (X, Y, Z) {
+      const x = (X / (X + Y + Z)).toFixed(4)
+      const y = (Y / (X + Y + Z)).toFixed(4)
+
+      return { x, y }
+    },
+    applyCorrections (r, g, b) {
+      const gammaCorrectedRed = this.computeGammaCorrection(r)
+      const gammaCorrectedGreen = this.computeGammaCorrection(g)
+      const gammaCorrectedBlue = this.computeGammaCorrection(b)
+
+      const { X, Y, Z } = this.computeD65Conversion(
+        gammaCorrectedRed,
+        gammaCorrectedGreen,
+        gammaCorrectedBlue
+      )
+
+      return this.calculateXYValues(X, Y, Z)
     }
   }
 }

@@ -17,6 +17,7 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "hue": "git+https://git@github.com/matt-taggart/hue-api-v2.git",
+    "lodash": "^4.17.4",
     "vue": "^2.5.2",
     "vue-color": "^2.4.3",
     "vue-router": "^3.0.1"
