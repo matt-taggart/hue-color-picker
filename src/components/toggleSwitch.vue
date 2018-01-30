@@ -8,12 +8,24 @@
 
 export default {
   name: 'ToggleSwitch',
-  props: [
-    'colors',
-    'applyCorrections',
-    'setLightStateAll',
-    'turnOffAllLights'
-  ],
+  props: {
+    colors: {
+      type: Object,
+      required: true
+    },
+    applyCorrections: {
+      type: Function,
+      required: true
+    },
+    setLightStateAll: {
+      type: Function,
+      required: true
+    },
+    turnOffAllLights: {
+      type: Function,
+      required: true
+    }
+  },
   data () {
     return {
       checked: false
