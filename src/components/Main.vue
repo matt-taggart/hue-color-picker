@@ -169,10 +169,10 @@ main {
   .light-effect {
     position: absolute;
     text-align: center;
-    width: 70px;
-    height: 80px;
-    border-radius: 80px;
-    margin: 1.25em 0 0 0;
+    width: 68.5px;
+    height: 84.5px;
+    border-radius: 90px;
+    margin: 1em 0 0 0;
     z-index: -1;
   }
 }
