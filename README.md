@@ -1,27 +1,42 @@
-# hue-color-picker
+# Hue Color Picker
 
-> A Vue.js project
+A home automation UI tool built with Vue for controlling lights via the Hue API.
 
-## Build Setup
+## Getting Started
 
-``` bash
-# install dependencies
-npm install
+The following instructions will get the Vue application running on your local machine.
 
-# serve with hot reload at localhost:8080
-npm run dev
+### Installing
 
-# build for production with minification
-npm run build
+Clone the repo:
 
-# build for production and view the bundle analyzer report
-npm run build --report
+`git clone https://github.com/matt-taggart/hue-color-picker.git`
 
-# run unit tests
-npm run unit
+Install node modules:
 
-# run all tests
-npm test
-```
+`yarn install`
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Start up webpack dev server:
+
+`yarn start`
+
+Run production build:
+
+`yarn run build`
+
+## Running Tests
+
+This project uses Jest and Vue Test Utils for unit testing purposes.  To run the entire test suite, you can use the command `yarn test`. If you prefer to use the "watch" functionality of Jest, you can do this by running `yarn watch`.
+
+## Built With
+
+* Vue - Progressive Javascript framework for building user interfaces.
+* Jest - Zero-configuration testing library.
+* Vue-Test-Utils - Utilities for testing Vue components.
+* Vue-Color - Vue Color Pickers for Sketch, Photoshop, Chrome & more
+* Hue-API-V2 - Lightweight wrapper around Philips Hue RESTful API. This library can be found at: https://github.com/matt-taggart/hue-api-v2
+
+## Features
+
+* Allows users to switch lights on and off via the Philips Hue API.
+* Grants fine-tuned control over the color of lights connected to the Hue bridge via a color picker.
