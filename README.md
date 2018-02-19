@@ -31,6 +31,7 @@ This project uses Jest and Vue Test Utils for unit testing purposes.  To run the
 ## Built With
 
 * Vue - Progressive Javascript framework for building user interfaces.
+* Vue-Loader - Webpack loader for Vue.js components.
 * Jest - Zero-configuration testing library.
 * Vue-Test-Utils - Utilities for testing Vue components.
 * Vue-Color - Vue Color Pickers for Sketch, Photoshop, Chrome & more
