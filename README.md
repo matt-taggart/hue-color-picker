@@ -2,6 +2,8 @@
 
 A home automation UI tool built with Vue for controlling lights via the Hue API.
 
+See giphy here: https://gfycat.com/gifs/detail/IncredibleCalmChicken
+
 ## Getting Started
 
 The following instructions will get the Vue application running on your local machine.
